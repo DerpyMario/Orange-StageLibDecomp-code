@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>CapCommon</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net35</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="UnsafeGeneric">
+      <HintPath>..\client\xds\UnsafeGeneric.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4">
+      <HintPath>..\client\xds\LZ4.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
