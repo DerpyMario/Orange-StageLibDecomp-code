@@ -94,9 +94,7 @@ public class CharacterMaterial : MonoBehaviour
 
 	public Color HurtColor { get; set; } = Color.white;
 
-
 	public Color RimColor { get; set; } = new Color(1f, 1f, 1f, 0.15f);
-
 
 	public int GetTexturesCount
 	{
@@ -113,7 +111,6 @@ public class CharacterMaterial : MonoBehaviour
 	public CharacterMaterial GetSubCharacterMaterials => SubCharacterMaterials;
 
 	public bool IsAllowInvincibleEffect { get; set; } = true;
-
 
 	protected void Awake()
 	{
@@ -229,10 +226,10 @@ public class CharacterMaterial : MonoBehaviour
 		mpb.SetFloat(prop.i_RimMin, RimMin);
 		mpb.SetFloat(prop.i_RimMax, RimMax);
 		mpb.SetColor(prop.i_RimColor, RimColor);
-		float @float = mpb.GetFloat(prop.i_DissolveValue);
-		float num = ((overrideDissolveTime == -1f) ? DissolveTime : overrideDissolveTime);
+		float num = mpb.GetFloat(prop.i_DissolveValue);
+		float num2 = ((overrideDissolveTime == -1f) ? DissolveTime : overrideDissolveTime);
 		Callback m_cb = callback;
-		if (num == 0f)
+		if (num2 == 0f)
 		{
 			mpb.SetFloat(prop.i_DissolveValue, 0f);
 			AppearTweenUid = -1;
@@ -240,7 +237,7 @@ public class CharacterMaterial : MonoBehaviour
 			m_cb.CheckTargetToInvoke();
 			return -1;
 		}
-		return AppearTweenUid = LeanTween.value(base.gameObject, @float, 0f, num).setOnUpdate(delegate(float val)
+		return AppearTweenUid = LeanTween.value(base.gameObject, num, 0f, num2).setOnUpdate(delegate(float val)
 		{
 			mpb.SetFloat(prop.i_DissolveValue, val);
 			UpdatePropertyBlock();
@@ -273,10 +270,10 @@ public class CharacterMaterial : MonoBehaviour
 		mpb.SetFloat(prop.i_RimMin, RimMin);
 		mpb.SetFloat(prop.i_RimMax, RimMax);
 		mpb.SetColor(prop.i_RimColor, RimColor);
-		float @float = mpb.GetFloat(prop.i_DissolveValue);
+		float fStart = mpb.GetFloat(prop.i_DissolveValue);
 		float fTime = ((overrideDissolveTime == -1f) ? DissolveTime : overrideDissolveTime);
 		Callback m_cb = callback;
-		StartCoroutine(StageResManager.TweenFloatCoroutine(@float, 0f, fTime, delegate(float val)
+		StartCoroutine(StageResManager.TweenFloatCoroutine(fStart, 0f, fTime, delegate(float val)
 		{
 			mpb.SetFloat(prop.i_DissolveValue, val);
 			UpdatePropertyBlock();
@@ -335,10 +332,10 @@ public class CharacterMaterial : MonoBehaviour
 		}
 		OrangeMaterialProperty prop = MonoBehaviourSingleton<OrangeMaterialProperty>.Instance;
 		ClearMaterialTween(callOnComplete: true);
-		float @float = mpb.GetFloat(prop.i_DissolveValue);
+		float num = mpb.GetFloat(prop.i_DissolveValue);
 		Callback m_cb = callback;
 		float time = ((overrideDissolveTime == -1f) ? DissolveTime : overrideDissolveTime);
-		return DisappearTweenUid = LeanTween.value(base.gameObject, @float, 1f, time).setOnUpdate(delegate(float val)
+		return DisappearTweenUid = LeanTween.value(base.gameObject, num, 1f, time).setOnUpdate(delegate(float val)
 		{
 			mpb.SetFloat(prop.i_DissolveValue, val);
 			UpdatePropertyBlock();
@@ -382,17 +379,17 @@ public class CharacterMaterial : MonoBehaviour
 		}
 		OrangeMaterialProperty prop = MonoBehaviourSingleton<OrangeMaterialProperty>.Instance;
 		ClearMaterialTween(callOnComplete: true);
-		float @float = mpb.GetFloat(prop.i_DissolveValue);
+		float num = mpb.GetFloat(prop.i_DissolveValue);
 		if (dissolveTime > 0f)
 		{
 			Callback m_cb = callback;
-			return AppearSelectTweenUid = LeanTween.value(base.gameObject, @float, 0f, dissolveTime).setOnUpdate(delegate(float val)
+			return AppearSelectTweenUid = LeanTween.value(base.gameObject, num, 0f, dissolveTime).setOnUpdate(delegate(float val)
 			{
 				mpb.SetFloat(prop.i_DissolveValue, val);
 				Renderer[] array2 = r;
-				for (int j = 0; j < array2.Length; j++)
+				for (int i = 0; i < array2.Length; i++)
 				{
-					array2[j].SetPropertyBlock(mpb);
+					array2[i].SetPropertyBlock(mpb);
 				}
 			}).setOnComplete((Action)delegate
 			{
@@ -404,9 +401,9 @@ public class CharacterMaterial : MonoBehaviour
 		}
 		mpb.SetFloat(prop.i_DissolveValue, 0f);
 		Renderer[] array = r;
-		for (int i = 0; i < array.Length; i++)
+		for (int num2 = 0; num2 < array.Length; num2++)
 		{
-			array[i].SetPropertyBlock(mpb);
+			array[num2].SetPropertyBlock(mpb);
 		}
 		mpb.SetFloat(prop.i_DissolveValue, 1f);
 		callback.CheckTargetToInvoke();
@@ -428,9 +425,9 @@ public class CharacterMaterial : MonoBehaviour
 		}
 		OrangeMaterialProperty prop = MonoBehaviourSingleton<OrangeMaterialProperty>.Instance;
 		ClearMaterialTween(callOnComplete: true);
-		float @float = mpb.GetFloat(prop.i_DissolveValue);
+		float num = mpb.GetFloat(prop.i_DissolveValue);
 		Callback m_cb = callback;
-		return DisappearSelectTweenUid = LeanTween.value(base.gameObject, @float, 1f, DissolveTime).setOnUpdate(delegate(float val)
+		return DisappearSelectTweenUid = LeanTween.value(base.gameObject, num, 1f, DissolveTime).setOnUpdate(delegate(float val)
 		{
 			mpb.SetFloat(prop.i_DissolveValue, val);
 			Renderer[] array = r;
@@ -551,8 +548,8 @@ public class CharacterMaterial : MonoBehaviour
 
 	public void SetEmissionFadeOut()
 	{
-		float @float = mpb.GetFloat(MonoBehaviourSingleton<OrangeMaterialProperty>.Instance.i_Intensity);
-		SetEmissionFadeOutTweenUid = LeanTween.value(base.gameObject, @float, 0f, 0.15f).setOnUpdate(delegate(float f)
+		float num = mpb.GetFloat(MonoBehaviourSingleton<OrangeMaterialProperty>.Instance.i_Intensity);
+		SetEmissionFadeOutTweenUid = LeanTween.value(base.gameObject, num, 0f, 0.15f).setOnUpdate(delegate(float f)
 		{
 			mpb.SetFloat(MonoBehaviourSingleton<OrangeMaterialProperty>.Instance.i_Intensity, f);
 			UpdatePropertyBlock();
